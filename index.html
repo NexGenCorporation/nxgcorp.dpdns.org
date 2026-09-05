@@ -298,46 +298,7 @@
             font-size: 1rem;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             position: relative;
-            overflow: hidden;
-        }
+            overflow: hidden
 
-        /* Kul CSS efekat prelamanja svetlosti na hover */
-        .glass-btn::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -50%;
-            width: 30%;
-            height: 100%;
-            background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.1), rgba(255,255,255,0));
-            transform: skewX(-25deg);
-            transition: 0.75s;
-        }
-
-        .glass-btn:hover::after {
-            left: 150%;
-        }
-
-        .glass-btn:hover {
-            background: rgba(88, 166, 255, 0.1);
-            border-color: rgba(88, 166, 255, 0.3);
-            box-shadow: 0 0 15px rgba(88, 166, 255, 0.15);
-            transform: translateY(-2px);
-        }
-
-        .btn-icon {
-            font-size: 1.2rem;
-            opacity: 0.8;
-        }
-
-        /* Podnožje */
-        .footer {
-            margin-top: 2rem;
-            font-size: 0.8rem;
-            color: #555d66;
-        }
-
-        @media (max-width: 480px) {
-            .glass-card { padding: 1.8rem 1.2rem; }
 
 </html>
