@@ -13,7 +13,7 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
+            background: linear-gradient(135deg, #0a0f1d 0%, #020617 100%);
             color: #f8fafc;
             min-height: 100vh;
             display: flex;
@@ -33,27 +33,27 @@
             border-radius: 50%;
             filter: blur(120px);
             z-index: 0;
-            opacity: 0.4;
+            opacity: 0.35;
         }
         body::before {
-            background: #22c55e; /* Neon zelena iz logoa */
-            top: 15%;
+            background: #22c55e; /* Neon zelena */
+            top: 10%;
             left: 10%;
         }
         body::after {
-            background: #3b82f6; /* Plava iz logoa */
-            bottom: 20%;
+            background: #3b82f6; /* Plava */
+            bottom: 10%;
             right: 10%;
         }
 
         .container {
             width: 100%;
-            max-width: 800px;
+            max-width: 440px;
             padding: 40px 20px;
             z-index: 1;
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 25px;
         }
 
         /* Logo i Header */
@@ -63,32 +63,36 @@
         }
         
         .logo-text {
-            font-size: 3.5rem;
-            font-weight: 700;
+            font-size: 2.8rem;
+            font-weight: 800;
             color: #3b82f6;
             letter-spacing: -1px;
         }
         .logo-text span {
             background: #22c55e;
             color: #020617;
-            padding: 2px 10px;
-            font-size: 1.5rem;
+            padding: 2px 8px;
+            font-size: 1.3rem;
             border-radius: 6px;
             vertical-align: middle;
             margin-right: 8px;
             font-weight: 800;
         }
 
-        /* Liquid Glass Card Stil */
+        /* Glavna Liquid Glass Kartica */
         .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 24px;
-            padding: 35px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            transition: transform 0.3s ease, border-color 0.3s ease;
+            background: rgba(13, 20, 38, 0.45);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            border-left: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 2.5rem;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.1);
+            position: relative;
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         .glass-card:hover {
@@ -96,77 +100,85 @@
             border-color: rgba(59, 130, 246, 0.3);
         }
 
+        /* Efekat tečnog sjaja na vrhu kartice */
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 40%;
+            background: linear-gradient(rgba(255,255,255,0.04), rgba(255,255,255,0));
+            border-radius: 20px 20px 0 0;
+            pointer-events: none;
+        }
+
         h2 {
-            font-size: 1.8rem;
-            color: #3b82f6;
+            font-size: 1.5rem;
+            color: #f8fafc;
             margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         p {
             color: #94a3b8;
-            line-height: 1.7;
-            font-size: 1.1rem;
+            line-height: 1.6;
+            font-size: 1rem;
         }
 
-        /* Kontakt Lista i Dugmići */
-        .contact-list {
-            list-style: none;
+        /* Sekcija sa linkovima / Skupljeni stil za dugmad */
+        .links-container {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 0.9rem;
         }
 
-        .contact-item {
+        .glass-btn {
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.2rem;
+            color: #f0f3f8;
+            text-decoration: none;
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 15px 20px;
-            border-radius: 14px;
-            transition: background 0.2s ease;
+            border-radius: 12px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
         }
 
-        .contact-item:hover {
-            background: rgba(255, 255, 255, 0.05);
+        .glass-btn:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: scale(1.01);
         }
 
-        .contact-label {
-            font-weight: 600;
-            color: #f8fafc;
-            width: 100px;
-            flex-shrink: 0;
+        .btn-label {
+            color: #94a3b8;
         }
 
-        .contact-value a {
+        .btn-value {
             color: #22c55e;
-            text-decoration: none;
-            word-break: break-all;
-            transition: color 0.2s ease;
-        }
-
-        .contact-value a:hover {
-            color: #4ade80;
-            text-decoration: underline;
+            font-weight: 600;
         }
 
         /* Footer */
         footer {
             width: 100%;
             text-align: center;
-            padding: 30px 20px;
+            padding: 25px 20px;
             z-index: 1;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            background: rgba(2, 6, 23, 0.5);
-            backdrop-filter: blur(8px);
+            background: rgba(2, 6, 23, 0.7);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
         }
 
         .footer-logo {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #94a3b8;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #64748b;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -176,8 +188,8 @@
         .footer-logo span {
             background: #22c55e;
             color: #020617;
-            padding: 1px 5px;
-            font-size: 0.7rem;
+            padding: 1px 4px;
+            font-size: 0.65rem;
             border-radius: 3px;
             font-weight: 800;
         }
@@ -199,19 +211,19 @@
         <!-- Contact Section -->
         <section class="glass-card">
             <h2>Contact Info</h2>
-            <div class="contact-list">
-                <div class="contact-item">
-                    <span class="contact-label">Email:</span>
-                    <span class="contact-value"><a href="mailto:nxgcorpcontact@gmail.com">nxgcorpcontact@gmail.com</a></span>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-label">Website:</span>
-                    <span class="contact-value"><a href="https://dpdns.org" target="_blank">contact.nexgencorp.dpdns.org</a></span>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-label">Discord:</span>
-                    <span class="contact-value"><a href="https://discord.gg/yabb225XBw" target="_blank">Join Community</a></span>
-                </div>
+            <div class="links-container">
+                <a href="mailto:nxgcorpcontact@gmail.com" class="glass-btn">
+                    <span class="btn-label">Email:</span>
+                    <span class="btn-value">nxgcorpcontact@gmail.com</span>
+                </a>
+                <a href="https://dpdns.org" target="_blank" class="glass-btn">
+                    <span class="btn-label">Website:</span>
+                    <span class="btn-value">contact.nexgencorp.dpdns.org</span>
+                </a>
+                <a href="https://discord.gg" target="_blank" class="glass-btn">
+                    <span class="btn-label">Discord:</span>
+                    <span class="btn-value">Join Community</span>
+                </a>
             </div>
         </section>
     </div>
@@ -223,4 +235,5 @@
         </div>
     </footer>
 
+</body>
 </html>
