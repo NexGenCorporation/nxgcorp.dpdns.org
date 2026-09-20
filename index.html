@@ -265,7 +265,7 @@
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowfullscreen>
             </iframe>
-            <p class="youtube-caption">A random Xiaomi video is selected each time the page loads.</p>
+            <p class="youtube-caption">Looping through Xiaomi videos.</p>
         </section>
 
         <!-- Contact Section -->
@@ -304,16 +304,27 @@
     </footer>
 
     <script>
-        // Public videos from the official Xiaomi YouTube channel (@xiaomi).
         const xiaomiVideos = [
             'F6jzy52jvu4',
             'l5p9hU6RK0Q',
             'utOHxwMivWc',
             'oPt-vClgM6U'
         ];
-        const randomVideo = xiaomiVideos[Math.floor(Math.random() * xiaomiVideos.length)];
-        document.getElementById('xiaomi-video').src =
-            `https://www.youtube.com/embed/${randomVideo}?autoplay=1&mute=1&playsinline=1&rel=0`;
+
+        const iframe = document.getElementById('xiaomi-video');
+        let currentIndex = Math.floor(Math.random() * xiaomiVideos.length);
+
+        function loadVideo(index) {
+            const videoId = xiaomiVideos[index];
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&loop=1&playlist=${xiaomiVideos.join(',')}&rel=0`;
+        }
+
+        loadVideo(currentIndex);
+
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % xiaomiVideos.length;
+            loadVideo(currentIndex);
+        }, 12000);
     </script>
 
 </body>
