@@ -125,6 +125,48 @@
             font-size: 1rem;
         }
 
+        /* Xiaomi YouTube banner */
+        .youtube-banner {
+            padding: 1.25rem;
+        }
+
+        .youtube-banner h2 {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+        }
+
+        .youtube-banner h2 a {
+            color: #ef4444;
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .youtube-banner h2 a:hover {
+            text-decoration: underline;
+        }
+
+        .youtube-frame {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border: 0;
+            border-radius: 12px;
+            background: #020617;
+        }
+
+        .youtube-caption {
+            margin-top: 10px;
+            font-size: 0.78rem;
+            color: #64748b;
+            text-align: center;
+        }
+
         /* Sekcija sa linkovima / Skupljeni stil za dugmad */
         .links-container {
             display: flex;
@@ -208,6 +250,22 @@
             <p>Founded by KingZarek1 (Legal name Petar), NexGen is a forward-thinking company built with a single, clear vision: to create revolutionary technology that shapes the future.</p>
         </main>
 
+        <!-- Xiaomi YouTube banner -->
+        <section class="glass-card youtube-banner">
+            <h2>
+                <span>Xiaomi on YouTube</span>
+                <a href="https://www.youtube.com/@xiaomi" target="_blank" rel="noopener noreferrer">Visit channel</a>
+            </h2>
+            <iframe
+                id="xiaomi-video"
+                class="youtube-frame"
+                title="Random video from Xiaomi on YouTube"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+            </iframe>
+            <p class="youtube-caption">A random Xiaomi video is selected each time the page loads.</p>
+        </section>
+
         <!-- Contact Section -->
         <section class="glass-card">
             <h2>Links:</h2>
@@ -216,18 +274,19 @@
                     <span class="btn-label">Contact Email:</span>
                     <span class="btn-value">contact@mail.nxgcorp.dpdns.org</span>
                 </a>
-                <a href="https://contact.nxgcorp.dpdns.org" target="_blank" class="glass-btn">
+                <a href="https://contact.nxgcorp.dpdns.org" target="_blank" rel="noopener noreferrer" class="glass-btn">
                     <span class="btn-label">Contact Website:</span>
                     <span class="btn-value">contact.nexgencorp.dpdns.org</span>
                 </a>
-                <a href="https://discord.gg" target="_blank" class="glass-btn">
+                <a href="https://discord.gg" target="_blank" rel="noopener noreferrer" class="glass-btn">
                     <span class="btn-label">Discord:</span>
                     <span class="btn-value">Join Community</span>
-                <a href="https://games.nxgcorp.dpdns.org" target="_blank" class="glass-btn">
+                </a>
+                <a href="https://games.nxgcorp.dpdns.org" target="_blank" rel="noopener noreferrer" class="glass-btn">
                     <span class="btn-label">Games:</span>
                     <span class="btn-value">NexGames Website</span>
                 </a>
-                <a href="https://mi.com" target="_blank" class="glass-btn">
+                <a href="https://mi.com" target="_blank" rel="noopener noreferrer" class="glass-btn">
                     <span class="btn-label">Sponsor:</span>
                     <span class="btn-value">Xiaomi's Website</span>
                 </a>
@@ -241,6 +300,19 @@
             <span>N·E·X</span> NexGen Corp. &bull; 2026 &bull; All Rights Reserved. &bull; v1.2.2 &bull; Running on GitHub Pages
         </div>
     </footer>
+
+    <script>
+        // Public videos from the official Xiaomi YouTube channel (@xiaomi).
+        const xiaomiVideos = [
+            'F6jzy52jvu4',
+            'l5p9hU6RK0Q',
+            'utOHxwMivWc',
+            'oPt-vClgM6U'
+        ];
+        const randomVideo = xiaomiVideos[Math.floor(Math.random() * xiaomiVideos.length)];
+        document.getElementById('xiaomi-video').src =
+            `https://www.youtube.com/embed/${randomVideo}?rel=0`;
+    </script>
 
 </body>
 </html>
