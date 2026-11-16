@@ -1,126 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark" data-ui="liquid">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0a0f1d">
-    <title>NexGen ADPS License v1.0</title>
+    <title>NexGen ADPS License v1.0 | NexGen Corp.</title>
     <style>
-        * { box-sizing: border-box; }
-        body {
-            margin: 0;
-            padding: 40px 20px;
-            min-height: 100vh;
-            background: #0a0f1d;
-            color: #e5e7eb;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            line-height: 1.7;
-        }
-        main {
-            width: min(100%, 900px);
-            margin: 0 auto;
-        }
-        .brand {
-            display: inline-block;
-            margin-bottom: 22px;
-            color: #3b82f6;
-            font-size: 1.15rem;
-            font-weight: 800;
-            letter-spacing: -.03em;
-        }
-        .brand span {
-            margin-right: 7px;
-            padding: 3px 7px;
-            border-radius: 5px;
-            background: #22c55e;
-            color: #020617;
-            font-size: .75rem;
-            vertical-align: 2px;
-        }
-        header, section {
-            padding: 28px;
-            border: 1px solid #263244;
-            border-radius: 12px;
-            background: #111827;
-            margin-bottom: 18px;
-        }
-        h1, h2, h3 { line-height: 1.3; }
-        h1 {
-            margin: 0 0 12px;
-            color: #60a5fa;
-            font-size: clamp(1.8rem, 5vw, 2.5rem);
-        }
-        h2 {
-            margin: 0 0 18px;
-            color: #60a5fa;
-            font-size: 1.35rem;
-        }
-        h3 {
-            margin: 24px 0 8px;
-            color: #f3f4f6;
-            font-size: 1.05rem;
-        }
-        h3:first-of-type { margin-top: 0; }
-        p { margin: 0 0 14px; }
-        p:last-child { margin-bottom: 0; }
-        .metadata { color: #94a3b8; }
-        a { color: #4ade80; text-decoration: none; overflow-wrap: anywhere; }
-        a:hover { text-decoration: underline; }
-        ul { margin: 8px 0 16px; padding-left: 24px; }
-        li { margin: 8px 0; }
-        .section-label {
-            margin-bottom: 8px;
-            color: #22c55e;
-            font-size: .78rem;
-            font-weight: 800;
-            letter-spacing: .1em;
-            text-transform: uppercase;
-        }
-        footer {
-            padding: 20px 8px 0;
-            color: #64748b;
-            text-align: center;
-            font-size: .9rem;
-        }
-        @media (max-width: 600px) {
-            body { padding: 24px 14px; }
-            header, section { padding: 21px 18px; }
-        }
+        :root { color-scheme:dark;--bg:#0a0f1d;--panel:rgba(17,24,39,.72);--panel-solid:#111827;--text:#e5e7eb;--muted:#94a3b8;--line:rgba(148,163,184,.2);--accent:#60a5fa;--green:#22c55e;--shadow:0 20px 50px rgba(0,0,0,.28); }
+        * { box-sizing:border-box; }
+        body { margin:0;min-height:100vh;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.7;transition:background .2s,color .2s; }
+        body::before,body::after { content:"";position:fixed;z-index:-1;width:320px;height:320px;border-radius:50%;filter:blur(120px);opacity:.2;pointer-events:none; }
+        body::before { top:5%;left:16%;background:#22c55e; } body::after { right:5%;bottom:4%;background:#3b82f6; }
+        .sidebar { position:fixed;inset:0 auto 0 0;z-index:5;width:250px;padding:28px 18px;display:flex;flex-direction:column;background:var(--panel);border-right:1px solid var(--line); }
+        .brand { display:flex;align-items:center;gap:9px;margin:0 8px 34px;color:var(--accent);font-family:'Segoe UI',sans-serif;font-weight:800;font-size:1.15rem;text-decoration:none; }
+        .brand-mark { padding:3px 7px;border-radius:5px;background:var(--green);color:#020617;font-size:.75rem; }
+        .nav-label { margin:0 10px 10px;color:var(--muted);font-family:'Segoe UI',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase; }
+        .nav { display:grid;gap:7px;font-family:'Segoe UI',sans-serif; }
+        .nav a { display:flex;align-items:center;gap:12px;min-height:46px;padding:10px 12px;border:1px solid transparent;border-radius:11px;color:var(--muted);text-decoration:none;font-weight:600;transition:background .2s,border-color .2s,color .2s; }
+        .nav a:hover,.nav a[aria-current="page"] { color:var(--text);background:rgba(96,165,250,.12);border-color:var(--line); }
+        .nav-icon { width:20px;text-align:center;color:var(--green); }
+        .sidebar-foot { margin-top:auto;padding:14px 10px 4px;color:var(--muted);font-family:'Segoe UI',sans-serif;font-size:.8rem; }
+        .content { width:min(100% - 250px,1000px);margin-left:250px;padding:42px clamp(20px,4vw,60px) 28px; }
+        header,.license-section { margin:0 0 18px;padding:clamp(20px,4vw,30px);border:1px solid var(--line);border-radius:16px;background:var(--panel);box-shadow:var(--shadow); }
+        .eyebrow { margin:0 0 8px;color:var(--green);font-family:'Segoe UI',sans-serif;font-size:.76rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase; }
+        h1,h2,h3 { line-height:1.3; }
+        h1 { margin:0 0 12px;color:var(--accent);font-family:'Segoe UI',sans-serif;font-size:clamp(1.8rem,5vw,2.5rem); }
+        h2 { margin:0 0 18px;color:var(--accent);font-family:'Segoe UI',sans-serif;font-size:1.35rem; }
+        h3 { margin:24px 0 8px;color:var(--text);font-family:'Segoe UI',sans-serif;font-size:1.05rem; }
+        h3:first-of-type { margin-top:0; }
+        p { margin:0 0 14px; } p:last-child { margin-bottom:0; }
+        .metadata { color:var(--muted); }
+        a { color:var(--green);text-decoration:none;overflow-wrap:anywhere; } a:hover { text-decoration:underline; }
+        ul { margin:8px 0 16px;padding-left:24px; } li { margin:8px 0; }
+        footer { padding:20px 8px 0;color:var(--muted);font-family:'Segoe UI',sans-serif;text-align:center;font-size:.9rem; }
+        [data-ui="static"] .license-section,[data-ui="static"] .sidebar { background:var(--panel-solid);box-shadow:none;backdrop-filter:none; }
+        [data-ui="static"] .license-section { border-radius:10px; }
+        [data-ui="monochrome"] { --bg:#000;--panel:rgba(10,10,10,.95);--panel-solid:#0a0a0a;--text:#fff;--muted:#d0d0d0;--line:#777;--accent:#fff;--green:#fff;--shadow:none;color-scheme:dark; }
+        [data-ui="monochrome"] body::before,[data-ui="monochrome"] body::after { display:none; }
+        [data-ui="monochrome"] .license-section,[data-ui="monochrome"] .sidebar { background:var(--panel-solid);border-radius:0;box-shadow:none;backdrop-filter:none; }
+        [data-ui="monochrome"] .nav a:hover,[data-ui="monochrome"] .nav a[aria-current="page"] { background:#222; }
+        [data-theme="light"] { color-scheme:light;--bg:#f1f5f9;--panel:rgba(255,255,255,.82);--panel-solid:#fff;--text:#0f172a;--muted:#475569;--line:rgba(15,23,42,.16);--accent:#1d4ed8;--green:#15803d;--shadow:0 18px 45px rgba(15,23,42,.1); }
+        [data-theme="light"] body::before,[data-theme="light"] body::after { opacity:.12; }
+        [data-theme="light"] .nav a:hover,[data-theme="light"] .nav a[aria-current="page"] { background:rgba(29,78,216,.08); }
+        @media(max-width:760px) { .sidebar { position:sticky;inset:auto;width:100%;height:auto;padding:12px 14px;border-right:0;border-bottom:1px solid var(--line); } .brand { margin:0 5px 12px; } .nav-label,.sidebar-foot { display:none; } .nav { grid-template-columns:repeat(3,minmax(0,1fr));gap:5px; } .nav a { justify-content:center;gap:6px;min-height:42px;padding:8px 5px;font-size:.8rem; } .nav-icon { width:auto; } .content { width:100%;margin:0;padding:28px 16px 18px; } }
+        @media(prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important;transition:none!important; } }
     </style>
 </head>
 <body>
-<main>
-    <div class="brand"><span>N·E·X</span>NexGen Corp.</div>
-
+<aside class="sidebar" aria-label="Main sidebar">
+    <a class="brand" href="index.html"><span class="brand-mark">N·E·X</span> NexGen Corp.</a>
+    <p class="nav-label">Navigation</p>
+    <nav class="nav" aria-label="Main navigation">
+        <a href="index.html"><span class="nav-icon" aria-hidden="true">⌂</span>Home</a>
+        <a href="settings.html"><span class="nav-icon" aria-hidden="true">⚙</span>Settings</a>
+        <a href="license.html" aria-current="page"><span class="nav-icon" aria-hidden="true">§</span>Open Source Licenses</a>
+    </nav>
+    <div class="sidebar-foot">NexGen Corp. &bull; 2026</div>
+</aside>
+<main class="content">
     <header>
-        <p class="section-label">License</p>
+        <p class="eyebrow">Open Source Licenses</p>
         <h1>NexGen ADPS License (Version 1.0)</h1>
         <p class="metadata">Date of Creation: November 16th, 2026</p>
         <p class="metadata">Copyright (c) 2026 NexGen Corp.</p>
         <p><a href="https://adpslicense.nxgcorp.dpdns.org">https://adpslicense.nxgcorp.dpdns.org</a></p>
     </header>
-
-    <section>
-        <p class="section-label">Part 1</p>
+    <section class="license-section">
+        <p class="eyebrow">Part 1</p>
         <h2>Software &amp; Code Permissions (Apache 2.0 + Boost 1.0 Hybrid)</h2>
-
         <h3>1. Grant of Copyright License</h3>
         <p>Subject to the terms and conditions of this License, NexGen Corp. and each Contributor hereby grant to You a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable copyright license to reproduce, prepare Derivative Works of, publicly display, publicly perform, sublicense, and distribute the Work and such Derivative Works in Source or Object (compiled binary) form.</p>
-
         <h3>2. Grant of Patent License</h3>
         <p>Subject to the terms and conditions of this License, NexGen Corp. and each Contributor hereby grant to You a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable patent license to make, have made, use, offer to sell, sell, import, and otherwise transfer the Work. If You institute patent litigation against any entity alleging that the Work constitutes direct or contributory patent infringement, then any patent licenses granted to You under this License shall terminate as of the date such litigation is filed.</p>
-
         <h3>3. Source Code Redistribution</h3>
         <p>You may reproduce and distribute copies of the Work or Derivative Works in source code form, provided that You retain all copyright, patent, trademark, and attribution notices from the Source form of the Work, and include a copy of this License.</p>
-
         <h3>4. Compiled Binary Exemption (Boost 1.0 Clause)</h3>
         <p>Unlike standard Apache 2.0, the attribution and license-reproduction requirements in Section 3 do not apply to Derivative Works distributed solely in machine-executable (compiled binary/object) form.</p>
     </section>
-
-    <section>
-        <p class="section-label">Part 2</p>
+    <section class="license-section">
+        <p class="eyebrow">Part 2</p>
         <h2>Mandatory Data Protection &amp; Privacy Addendum</h2>
-
         <h3>5. Baseline Privacy Standard (Stricter than Swiss FADP)</h3>
         <p>Any deployment, hosting, or execution of this Work that processes personal data must enforce technical and organizational protections that exceed the Swiss Federal Act on Data Protection (FADP). Specifically, operators must enforce:</p>
         <ul>
@@ -128,23 +87,33 @@
             <li><strong>Strict Data Minimization &amp; Purpose Limitation:</strong> No personal data, telemetry, or metadata may be collected, logged, or retained beyond what is strictly necessary for the immediate execution of the user-requested function.</li>
             <li><strong>Prohibition on Unauthorized Data Brokering:</strong> Personal data processed by this Work shall never be sold, rented, monetized, or shared with third-party data brokers or advertising networks.</li>
         </ul>
-
         <h3>6. Local &amp; Jurisdictional Compliance</h3>
         <p>In addition to Section 5, any entity deploying or operating this Work must fully comply with all applicable data protection and privacy laws in their current geographic zone, region, or country (including, where applicable, GDPR, CCPA/CPRA, local data residency mandates, and national privacy statutes). Where local law and Section 5 conflict, the stricter privacy protection shall apply to the maximum extent permitted by law.</p>
     </section>
-
-    <section>
-        <p class="section-label">Part 3</p>
+    <section class="license-section">
+        <p class="eyebrow">Part 3</p>
         <h2>Disclaimer &amp; Liability</h2>
-
         <h3>7. Disclaimer of Warranty</h3>
         <p>UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING, NEXGEN CORP. AND ALL CONTRIBUTORS PROVIDE THE WORK ON AN "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING, WITHOUT LIMITATION, ANY WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY, OR FITNESS FOR A PARTICULAR PURPOSE.</p>
-
         <h3>8. Limitation of Liability</h3>
         <p>IN NO EVENT AND UNDER NO LEGAL THEORY, WHETHER IN TORT (INCLUDING NEGLIGENCE), CONTRACT, OR OTHERWISE, UNLESS REQUIRED BY APPLICABLE LAW, SHALL NEXGEN CORP. OR ANY CONTRIBUTOR BE LIABLE TO YOU FOR DAMAGES, INCLUDING ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES OF ANY CHARACTER ARISING AS A RESULT OF THIS LICENSE OR OUT OF THE USE OR INABILITY TO USE THE WORK.</p>
     </section>
-
     <footer>Copyright (c) 2026 NexGen Corp. &bull; All Rights Reserved.</footer>
 </main>
+<script>
+    (() => {
+        const key = 'nexgen-site-preferences-v1';
+        const valid = { theme: ['dark', 'light'], ui: ['liquid', 'static', 'monochrome'] };
+        function apply() {
+            try {
+                const saved = JSON.parse(localStorage.getItem(key) || '{}');
+                document.documentElement.dataset.theme = valid.theme.includes(saved.theme) ? saved.theme : 'dark';
+                document.documentElement.dataset.ui = valid.ui.includes(saved.ui) ? saved.ui : 'liquid';
+            } catch (_) { document.documentElement.dataset.theme = 'dark'; document.documentElement.dataset.ui = 'liquid'; }
+        }
+        apply();
+        window.addEventListener('storage', event => { if (event.key === key || event.key === null) apply(); });
+    })();
+</script>
 </body>
 </html>

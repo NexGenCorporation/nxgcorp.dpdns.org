@@ -1,381 +1,136 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark" data-ui="liquid">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0f1d">
     <title>NexGen Corp.</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        :root { color-scheme: dark; --bg:#0a0f1d; --panel:rgba(17,24,39,.72); --panel-solid:#111827; --text:#f8fafc; --muted:#94a3b8; --line:rgba(148,163,184,.2); --accent:#60a5fa; --green:#22c55e; --shadow:0 20px 50px rgba(0,0,0,.28); }
+        * { box-sizing:border-box; }
+        body { margin:0; min-height:100vh; background:var(--bg); color:var(--text); font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif; transition:background .2s,color .2s; }
+        body::before, body::after { content:""; position:fixed; z-index:-1; width:320px; height:320px; border-radius:50%; filter:blur(120px); opacity:.24; pointer-events:none; }
+        body::before { top:5%; left:16%; background:#22c55e; } body::after { right:5%; bottom:4%; background:#3b82f6; }
+        .app { min-height:100vh; }
+        .sidebar { position:fixed; inset:0 auto 0 0; z-index:5; width:250px; padding:28px 18px; display:flex; flex-direction:column; background:var(--panel); border-right:1px solid var(--line); }
+        .brand { display:flex; align-items:center; gap:9px; margin:0 8px 34px; color:var(--accent); font-weight:800; font-size:1.15rem; text-decoration:none; }
+        .brand-mark { padding:3px 7px; border-radius:5px; background:var(--green); color:#020617; font-size:.75rem; }
+        .nav-label { margin:0 10px 10px; color:var(--muted); font-size:.72rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+        .nav { display:grid; gap:7px; }
+        .nav a { display:flex; align-items:center; gap:12px; min-height:46px; padding:10px 12px; border:1px solid transparent; border-radius:11px; color:var(--muted); text-decoration:none; font-weight:600; transition:background .2s,border-color .2s,color .2s; }
+        .nav a:hover, .nav a[aria-current="page"] { color:var(--text); background:rgba(96,165,250,.12); border-color:var(--line); }
+        .nav-icon { width:20px; text-align:center; color:var(--green); }
+        .sidebar-foot { margin-top:auto; padding:14px 10px 4px; color:var(--muted); font-size:.8rem; }
+        .content { width:min(100% - 250px, 1000px); margin-left:250px; padding:48px clamp(22px,5vw,70px) 28px; }
+        .page-head { margin:0 0 26px; }
+        .eyebrow { margin:0 0 8px; color:var(--green); font-size:.76rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+        h1 { margin:0 0 10px; color:var(--accent); font-size:clamp(2rem,5vw,3rem); line-height:1.15; }
+        h2 { margin:0 0 12px; font-size:1.35rem; }
+        p { color:var(--muted); line-height:1.7; }
+        .card { position:relative; margin:0 0 18px; padding:clamp(20px,4vw,32px); border:1px solid var(--line); border-radius:18px; background:var(--panel); box-shadow:var(--shadow); }
+        .card p:last-child { margin-bottom:0; }
+        .links { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr)); gap:10px; }
+        .link-card { display:flex; flex-direction:column; gap:5px; padding:15px; border:1px solid var(--line); border-radius:11px; background:rgba(255,255,255,.025); color:var(--text); text-decoration:none; overflow-wrap:anywhere; transition:transform .2s,border-color .2s,background .2s; }
+        .link-card:hover { transform:translateY(-2px); border-color:var(--accent); background:rgba(96,165,250,.08); }
+        .link-card strong { color:var(--muted); font-size:.82rem; }
+        .link-card span { color:var(--green); font-weight:650; }
+        .youtube-frame { display:block; width:100%; aspect-ratio:16/9; border:0; border-radius:12px; background:#020617; }
+        .caption { margin:10px 0 0; text-align:center; font-size:.82rem; }
+        .warning { color:#facc15; }
+        footer { padding:22px 4px; color:var(--muted); text-align:center; font-size:.85rem; }
+        [data-ui="static"] .card, [data-ui="static"] .sidebar { background:var(--panel-solid); box-shadow:none; backdrop-filter:none; }
+        [data-ui="static"] .card { border-radius:10px; }
+        [data-ui="static"] .link-card { border-radius:8px; }
+        [data-ui="monochrome"] { --bg:#000; --panel:rgba(10,10,10,.95); --panel-solid:#0a0a0a; --text:#fff; --muted:#d0d0d0; --line:#777; --accent:#fff; --green:#fff; --shadow:none; color-scheme:dark; }
+        [data-ui="monochrome"] body::before, [data-ui="monochrome"] body::after { display:none; }
+        [data-ui="monochrome"] .card, [data-ui="monochrome"] .sidebar { background:var(--panel-solid); border-radius:0; box-shadow:none; backdrop-filter:none; }
+        [data-ui="monochrome"] .nav a:hover, [data-ui="monochrome"] .nav a[aria-current="page"] { background:#222; }
+        [data-ui="monochrome"] .link-card { background:#111; border-radius:0; }
+        [data-theme="light"] { color-scheme:light; --bg:#f1f5f9; --panel:rgba(255,255,255,.8); --panel-solid:#fff; --text:#0f172a; --muted:#475569; --line:rgba(15,23,42,.16); --accent:#1d4ed8; --green:#15803d; --shadow:0 18px 45px rgba(15,23,42,.1); }
+        [data-theme="light"] body::before, [data-theme="light"] body::after { opacity:.13; }
+        [data-theme="light"] .link-card { background:rgba(15,23,42,.025); }
+        [data-theme="light"] .nav a:hover, [data-theme="light"] .nav a[aria-current="page"] { background:rgba(29,78,216,.08); }
+        @media (max-width:760px) {
+            .sidebar { position:sticky; inset:auto; width:100%; height:auto; padding:12px 14px; border-right:0; border-bottom:1px solid var(--line); }
+            .brand { margin:0 5px 12px; }
+            .nav-label, .sidebar-foot { display:none; }
+            .nav { grid-template-columns:repeat(3,minmax(0,1fr)); gap:5px; }
+            .nav a { justify-content:center; gap:6px; min-height:42px; padding:8px 5px; font-size:.8rem; }
+            .nav-icon { width:auto; }
+            .content { width:100%; margin:0; padding:30px 18px 18px; }
         }
-
-        body {
-            background: linear-gradient(135deg, #0a0f1d 0%, #020617 100%);
-            color: #f8fafc;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* Pozadinski svetlosni efekti za tečni stakleni izgled */
-        body::before, body::after {
-            content: '';
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            filter: blur(120px);
-            z-index: 0;
-            opacity: 0.35;
-        }
-        body::before {
-            background: #22c55e; /* Neon zelena */
-            top: 10%;
-            left: 10%;
-        }
-        body::after {
-            background: #3b82f6; /* Plava */
-            bottom: 10%;
-            right: 10%;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            padding: 40px 20px;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        /* Logo i Header */
-        header {
-            text-align: center;
-            margin-bottom: 10px;
-        }
-        
-        .logo-text {
-            font-size: 2.8rem;
-            font-weight: 800;
-            color: #3b82f6;
-            letter-spacing: -1px;
-        }
-        .logo-text span {
-            background: #22c55e;
-            color: #020617;
-            padding: 2px 8px;
-            font-size: 1.3rem;
-            border-radius: 6px;
-            vertical-align: middle;
-            margin-right: 8px;
-            font-weight: 800;
-        }
-
-        /* Glavna Liquid Glass Kartica */
-        .glass-card {
-            background: rgba(13, 20, 38, 0.45);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
-            border-left: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
-            padding: 2.5rem;
-            width: 100%;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.1);
-            position: relative;
-            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-
-        .glass-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(59, 130, 246, 0.3);
-        }
-
-        /* Efekat tečnog sjaja na vrhu kartice */
-        .glass-card::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 40%;
-            background: linear-gradient(rgba(255,255,255,0.04), rgba(255,255,255,0));
-            border-radius: 20px 20px 0 0;
-            pointer-events: none;
-        }
-
-        h2 {
-            font-size: 1.5rem;
-            color: #f8fafc;
-            margin-bottom: 15px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-
-        p {
-            color: #94a3b8;
-            line-height: 1.6;
-            font-size: 1rem;
-        }
-
-        /* Xiaomi YouTube banner */
-        .youtube-banner {
-            padding: 1.25rem;
-            width: 100%;
-            max-width: 100%;
-        }
-
-        .youtube-banner h2 {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            font-size: 1.25rem;
-            margin-bottom: 12px;
-        }
-
-        .youtube-banner h2 a {
-            color: #ef4444;
-            font-size: 0.78rem;
-            font-weight: 600;
-            text-decoration: none;
-            white-space: nowrap;
-        }
-
-        .warning {
-            color: #fff200;
-        }
-
-        .video-warning {
-            display: block;
-            margin-top: 12px;
-            color: #fff200;
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-
-        .youtube-banner h2 a:hover {
-            text-decoration: underline;
-        }
-
-        .youtube-frame {
-            display: block;
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            border: 0;
-            border-radius: 12px;
-            background: #020617;
-        }
-
-        .youtube-caption {
-            margin-top: 10px;
-            font-size: 0.78rem;
-            color: #64748b;
-            text-align: center;
-        }
-
-        /* Sekcija sa linkovima / Skupljeni stil za dugmad */
-        .links-container {
-            display: flex;
-            flex-direction: column;
-            gap: 0.9rem;
-        }
-
-        .glass-btn {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1rem 1.2rem;
-            color: #f0f3f8;
-            text-decoration: none;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .glass-btn:hover {
-            background: rgba(255, 255, 255, 0.07);
-            border-color: rgba(255, 255, 255, 0.15);
-            transform: scale(1.01);
-        }
-
-        .btn-label {
-            color: #94a3b8;
-        }
-
-        .btn-value {
-            color: #22c55e;
-            font-weight: 600;
-        }
-
-        .phone-message {
-            text-align: center;
-            padding: 10px 20px 0;
-        }
-
-        .phone-message h2 {
-            margin-bottom: 8px;
-            background: linear-gradient(90deg, #22c55e, #3b82f6);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-size: 1.25rem;
-        }
-
-        .phone-message p {
-            color: #60a5fa;
-            font-size: 0.95rem;
-        }
-
-        /* Footer */
-        footer {
-            width: 100%;
-            text-align: center;
-            padding: 25px 20px;
-            z-index: 1;
-            background: rgba(2, 6, 23, 0.7);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid rgba(255, 255, 255, 0.03);
-        }
-
-        .footer-logo {
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: #64748b;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        .footer-logo span {
-            background: #22c55e;
-            color: #020617;
-            padding: 1px 4px;
-            font-size: 0.65rem;
-            border-radius: 3px;
-            font-weight: 800;
-        }
+        @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition:none!important; } }
     </style>
 </head>
 <body>
-
-    <div class="container">
-        <header>
-            <div class="logo-text"><span>N·E·X</span>Gen</div>
-        </header>
-
-        <!-- About Section -->
-        <main class="glass-card">
+<div class="app">
+    <aside class="sidebar" aria-label="Main sidebar">
+        <a class="brand" href="index.html"><span class="brand-mark">N·E·X</span> NexGen Corp.</a>
+        <p class="nav-label">Navigation</p>
+        <nav class="nav" aria-label="Main navigation">
+            <a href="index.html" aria-current="page"><span class="nav-icon" aria-hidden="true">⌂</span>Home</a>
+            <a href="settings.html"><span class="nav-icon" aria-hidden="true">⚙</span>Settings</a>
+            <a href="license.html"><span class="nav-icon" aria-hidden="true">§</span>Open Source Licenses</a>
+        </nav>
+        <div class="sidebar-foot">NexGen Corp. &bull; 2026</div>
+    </aside>
+    <main class="content">
+        <header class="page-head"><p class="eyebrow">Welcome</p><h1>NexGen</h1><p>Technology and community, built for what comes next.</p></header>
+        <section class="card">
             <h2>About NexGen</h2>
-            <p>Founded by KingZarek1 (Legal name Petar), NexGen is a forward-thinking company built with a single, clear vision: to create revolutionary technology that shapes the future. Formerly HyperTech Inc.</p>
-        </main>
-
-        <!-- Xiaomi YouTube banner -->
-        <section class="glass-card youtube-banner">
-            <h2>
-                <span>Xiaomi on YouTube</span>
-                <a href="https://www.youtube.com/@xiaomi" target="_blank" rel="noopener noreferrer">Visit channel</a>
-            </h2>
-            <iframe
-                id="xiaomi-video"
-                class="youtube-frame"
-                title="Random video from Xiaomi on YouTube"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen>
-            </iframe>
-            <p class="youtube-caption">Looping through Xiaomi videos.</p>
-            <p class="video-warning"><strong>Warning!</strong> The video may fail to play. Our team is currently working on the issues!</p>
+            <p>Founded by KingZarek1 (legal name Petar), NexGen is a forward-thinking company focused on creating technology that shapes the future. Explore our community, projects, and channels below.</p>
         </section>
-
-        <!-- Contact Section -->
-        <section class="glass-card">
-            <h2>Links:</h2>
-            <div class="links-container">
-                <a href="mailto:contact@mail.nxgcorp.dpdns.org" class="glass-btn">
-                    <span class="btn-label">Contact Email:</span>
-                    <span class="btn-value">contact@mail.nxgcorp.dpdns.org</span>
-                </a>
-                <a href="https://contact.nxgcorp.dpdns.org" target="_blank" rel="noopener noreferrer" class="glass-btn">
-                    <span class="btn-label">Contact Website:</span>
-                    <span class="btn-value">contact.nexgencorp.dpdns.org</span>
-                </a>
-                <a href="https://linktr.ee/nxgcorp" target="_blank" rel="noopener noreferrer" class="glass-btn">
-                    <span class="btn-label">Linktr.ee:</span>
-                    <span class="btn-value">nxgcorp</span>
-                </a>
-                <a href="https://youtube.com/@nexgencorp" target="_blank" rel="noopener noreferrer" class="glass-btn">
-                    <span class="btn-label">YouTube:</span>
-                    <span class="btn-value">@NexGenCorp</span>
-                </a>
-                <a href="https://on.soundcloud.com/ZsZzwWviUizw5VLIlS" target="_blank" rel="noopener noreferrer" class="glass-btn">
-                    <span class="btn-label">SoundCloud:</span>
-                    <span class="btn-value">NexMusic™</span>
-                </a>
-                <a href="https://discord.gg" target="_blank" rel="noopener noreferrer" class="glass-btn">
-                    <span class="btn-label">Discord:</span>
-                    <span class="btn-value">Join Community</span>
-                </a>
-                <a href="https://games.nxgcorp.dpdns.org" target="_blank" rel="noopener noreferrer" class="glass-btn">
-                    <span class="btn-label">Games:</span>
-                    <span class="btn-value">NexGames Website</span>
-                </a>
-                <a href="https://mi.com" target="_blank" rel="noopener noreferrer" class="glass-btn">
-                    <span class="btn-label">Sponsor:</span>
-                    <span class="btn-value">Xiaomi's Website</span>
-                </a>
-                <a href="https://adpslicense.nxgcorp.dpdns.org" target="_blank" rel="noopener noreferrer" class="glass-btn">
-                    <span class="btn-label">Our License::</span>
-                    <span class="btn-value">NexGen ADPS License v1.0</span>
-                </a>
-        <section class="phone-message">
-            <h2>If you got here by tapping your phone...</h2>
-            <p>A email may be sent to your account. Check your spam folder incase!</p>
+        <section class="card">
+            <h2>Xiaomi on YouTube</h2>
+            <iframe id="xiaomi-video" class="youtube-frame" title="Random video from Xiaomi on YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <p class="caption">Looping through Xiaomi videos.</p>
+            <p class="warning"><strong>Warning:</strong> The video may fail to play. Our team is currently working on the issues.</p>
         </section>
-    </div>
-
-    <!-- Footer Section -->
-    <footer>
-        <div class="footer-logo">
-            <span>N·E·X</span> NexGen Corp. &bull; 2026 &bull; All Rights Reserved. &bull; v1.3.8&bull; Running on GitHub Pages
-        </div>
-    </footer>
-
-    <script>
-        const xiaomiVideos = [
-            'F6jzy52jvu4',
-            'l5p9hU6RK0Q',
-            'utOHxwMivWc',
-            'oPt-vClgM6U'
-        ];
-
-        const iframe = document.getElementById('xiaomi-video');
-        let currentIndex = Math.floor(Math.random() * xiaomiVideos.length);
-
-        function loadVideo(index) {
-            const videoId = xiaomiVideos[index];
-            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&loop=1&playlist=${xiaomiVideos.join(',')}&rel=0`;
+        <section class="card">
+            <h2>Links</h2>
+            <div class="links">
+                <a class="link-card" href="mailto:contact@mail.nxgcorp.dpdns.org"><strong>Contact Email</strong><span>contact@mail.nxgcorp.dpdns.org</span></a>
+                <a class="link-card" href="https://contact.nxgcorp.dpdns.org" target="_blank" rel="noopener noreferrer"><strong>Contact Website</strong><span>contact.nxgcorp.dpdns.org</span></a>
+                <a class="link-card" href="https://linktr.ee/nxgcorp" target="_blank" rel="noopener noreferrer"><strong>Linktr.ee</strong><span>nxgcorp</span></a>
+                <a class="link-card" href="https://youtube.com/@nexgencorp" target="_blank" rel="noopener noreferrer"><strong>YouTube</strong><span>@NexGenCorp</span></a>
+                <a class="link-card" href="https://on.soundcloud.com/ZsZzwWviUizw5VLIlS" target="_blank" rel="noopener noreferrer"><strong>SoundCloud</strong><span>NexMusic™</span></a>
+                <a class="link-card" href="https://discord.gg" target="_blank" rel="noopener noreferrer"><strong>Discord</strong><span>Join Community</span></a>
+                <a class="link-card" href="https://games.nxgcorp.dpdns.org" target="_blank" rel="noopener noreferrer"><strong>Games</strong><span>NexGames Website</span></a>
+                <a class="link-card" href="https://mi.com" target="_blank" rel="noopener noreferrer"><strong>Sponsor</strong><span>Xiaomi</span></a>
+                <a class="link-card" href="license.html"><strong>Open Source Licenses</strong><span>NexGen ADPS License v1.0</span></a>
+            </div>
+        </section>
+        <section class="card"><h2>If you got here by tapping your phone...</h2><p>An email may be sent to your account. Check your spam folder just in case.</p></section>
+        <footer><span class="brand-mark">N·E·X</span> NexGen Corp. &bull; 2026 &bull; All Rights Reserved. &bull; v1.3.8 &bull; Running on GitHub Pages</footer>
+    </main>
+</div>
+<script>
+    (() => {
+        const key = 'nexgen-site-preferences-v1';
+        const defaults = { theme: 'dark', ui: 'liquid' };
+        const valid = { theme: ['dark', 'light'], ui: ['liquid', 'static', 'monochrome'] };
+        function read() {
+            try {
+                const saved = JSON.parse(localStorage.getItem(key) || '{}');
+                return { theme: valid.theme.includes(saved.theme) ? saved.theme : defaults.theme, ui: valid.ui.includes(saved.ui) ? saved.ui : defaults.ui };
+            } catch (_) { return { ...defaults }; }
         }
-
-        loadVideo(currentIndex);
-
-        setInterval(() => {
-            currentIndex = (currentIndex + 1) % xiaomiVideos.length;
-            loadVideo(currentIndex);
-        }, 12000);
-    </script>
-
+        function apply() {
+            const prefs = read();
+            document.documentElement.dataset.theme = prefs.theme;
+            document.documentElement.dataset.ui = prefs.ui;
+        }
+        apply();
+        window.addEventListener('storage', event => { if (event.key === key || event.key === null) apply(); });
+    })();
+    const xiaomiVideos = ['F6jzy52jvu4', 'l5p9hU6RK0Q', 'utOHxwMivWc', 'oPt-vClgM6U'];
+    const videoFrame = document.getElementById('xiaomi-video');
+    let videoIndex = Math.floor(Math.random() * xiaomiVideos.length);
+    function loadVideo(index) {
+        videoFrame.src = `https://www.youtube.com/embed/${xiaomiVideos[index]}?autoplay=1&mute=1&playsinline=1&loop=1&playlist=${xiaomiVideos.join(',')}&rel=0`;
+    }
+    loadVideo(videoIndex);
+    setInterval(() => { videoIndex = (videoIndex + 1) % xiaomiVideos.length; loadVideo(videoIndex); }, 12000);
+</script>
 </body>
 </html>
